@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pacecar — Make the digital side of your business work better</title>
+<meta name="description" content="Pacecar is a hands-on digital improvement studio. Better websites, ongoing care, and practical automation for established businesses.">
+<meta property="og:title" content="Pacecar — Digital improvement studio">
+<meta property="og:description" content="Make the digital side of your business work better.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Young+Serif&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0A;--surface:#171717;--text:#F5F3EF;--muted:#A8A49D;--red:#FF3038;--crimson:#9E1B21;--light:#F5F3EF;--ink:#0A0A0A;--ease:cubic-bezier(.2,.8,.2,1);
+--display:"BBH Bartle","Archivo Black",Impact,"Arial Black",sans-serif;--body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:80px;height:auto;background:var(--bg)}
+html[data-wm="serif"]{--display:"Young Serif",Georgia,serif}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);font-size:18px;line-height:1.72;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--red);color:#fff;padding:8px 14px;z-index:100}.skip:focus{left:8px}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.06;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.wrap{padding-inline:clamp(20px,5vw,72px);max-width:1500px;margin-inline:auto}
+.tag{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.tag b{color:var(--red);font-weight:600}
+#prog{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:0 50%;z-index:60}
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .4s,backdrop-filter .4s}
+header.solid{background:rgba(10,10,10,.82);backdrop-filter:blur(12px)}
+header.onlight{background:rgba(245,243,239,.9);color:var(--ink)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:var(--display);font-size:22px;text-decoration:none;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.logo i{width:22px;height:3px;background:var(--red);display:inline-block;transform:skewX(-30deg)}
+nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:0;align-items:center}
+.lnk{text-decoration:none;font-size:14px;position:relative;padding:6px 0}
+.lnk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:100% 50%;transition:transform .45s var(--ease)}
+.lnk:hover::after{transform:scaleX(1);transform-origin:0 50%}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--red);color:#0A0A0A;text-decoration:none;font-weight:600;padding:15px 24px;border:0;cursor:pointer;font:600 16px var(--body);position:relative;overflow:hidden;clip-path:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%);transition:transform .4s var(--ease)}
+.btn span{position:relative;z-index:1}.btn svg{position:relative;z-index:1;transition:transform .4s var(--ease)}
+.btn::before{content:"";position:absolute;inset:0;background:var(--text);transform:translateX(-101%);transition:transform .5s var(--ease)}
+.btn:hover::before{transform:none}.btn:hover svg{transform:translateX(5px)}
+.btn.sm{padding:10px 20px 10px 18px;font-size:14px}
+.ghost{color:var(--text);text-decoration:none;font-weight:500;border-bottom:1px solid var(--muted);padding-bottom:3px;transition:border-color .3s,color .3s}.ghost:hover{border-color:var(--red);color:var(--red)}
+#burger{display:none;background:none;border:1px solid currentColor;color:inherit;width:44px;height:44px;cursor:pointer;border-radius:50%}
+#menu{position:fixed;inset:0;background:var(--bg);z-index:49;display:flex;flex-direction:column;justify-content:center;padding:0 24px;clip-path:circle(0 at calc(100% - 44px) 44px);transition:clip-path .7s var(--ease);visibility:hidden}
+#menu.open{clip-path:circle(150% at calc(100% - 44px) 44px);visibility:visible}
+#menu a{font-family:var(--display);font-size:clamp(38px,12vw,64px);text-decoration:none;padding:8px 0;line-height:1.05}
+#menu a:hover{color:var(--red)}
+/* intro */
+#intro{position:fixed;inset:0;background:var(--bg);z-index:90;display:grid;place-items:center;pointer-events:none;transition:opacity .5s .9s,visibility 0s 1.4s}
+#intro .l{width:min(60vw,420px);height:2px;background:var(--red);transform:scaleX(0);transform-origin:0 50%;animation:ln .8s var(--ease) .1s forwards}
+#intro small{position:absolute;margin-top:-40px;font:500 12px var(--body);letter-spacing:.3em;color:var(--muted)}
+@keyframes ln{to{transform:scaleX(1)}}
+body.go #intro{opacity:0;visibility:hidden}
+/* hero */
+.hero{min-height:100svh;position:relative;display:flex;align-items:flex-end;padding:150px 0 84px;overflow:hidden;background:radial-gradient(90% 70% at 75% 40%,#2a2a2a 0%,#0A0A0A 65%)}
+.art{position:relative;z-index:2;width:min(920px,100%);aspect-ratio:1080/660;margin:64px 0 0 auto;padding:2% 3%;background:linear-gradient(180deg,#161616,#0f0f0f);border:1px solid #2a2a2a;will-change:transform;transition:transform .25s ease-out}.art svg path,.art svg circle{vector-effect:non-scaling-stroke}
+.art svg{width:100%;height:100%;display:block}
+.ring{transform-origin:500px 500px;animation:spin 60s linear infinite}.ring.r2{animation-duration:90s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.streak{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--red) 30%,var(--red) 70%,transparent);top:76px;transform:scaleX(0);transform-origin:0 50%;opacity:.9}
+body.go .streak{animation:ln 1.2s var(--ease) .6s forwards}
+.hero h1{font-size:clamp(40px,7.2vw,115px);max-width:12ch;position:relative;z-index:2;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--red)}
+.mask{display:block;overflow:hidden;padding-bottom:.06em}.mask>span{display:block;transform:translateY(110%);transition:transform 1s var(--ease)}
+body.go .mask>span{transform:none}.mask:nth-child(2)>span{transition-delay:.12s}.mask:nth-child(3)>span{transition-delay:.24s}
+.fade{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+body.go .fade{opacity:1;transform:none;transition-delay:.9s}
+.hero-row{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-top:68px;position:relative;z-index:2}
+.hero p.lead{font-size:clamp(18px,1.5vw,22px);line-height:1.7;max-width:40ch;color:#d8d5cf;margin:0 0 44px}
+.cta-row{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.hero .meta{justify-self:end;text-align:right}
+.hero .eyebrow{position:relative;z-index:2;margin-bottom:38px}
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}.rv.in{opacity:1;transform:none}
+section{position:relative}
+.sec{padding:clamp(110px,16vw,240px) 0}
+/* problem */
+.problem{background:var(--bg)}
+.problem h2{font-size:clamp(34px,5.9vw,94px);max-width:15ch}
+.problem h2 u{text-decoration:none;color:var(--red)}
+.problem .intro-p{max-width:56ch;color:#cfccc6;margin:68px 0 0 auto;font-size:20px;line-height:1.8}
+.plist{margin-top:140px;border-top:1px solid #2a2a2a}
+.prow{display:grid;grid-template-columns:90px 1fr 44px;gap:0 20px;align-items:baseline;cursor:pointer;padding:54px 0;border-bottom:1px solid #2a2a2a;transition:padding-left .5s var(--ease)}
+.prow:hover{padding-left:24px}
+.prow .n{font-family:var(--display);font-size:clamp(41px,6.3vw,90px);color:transparent;-webkit-text-stroke:1.5px var(--red);line-height:.9}
+.prow:nth-child(2){margin-left:6vw}.prow:nth-child(3){margin-left:12vw}
+.prow h3{font-size:clamp(20px,2.9vw,40px);line-height:1.1;max-width:22ch;font-family:var(--body);font-weight:600;letter-spacing:-.02em}
+/* services */
+.services{background:var(--surface)}
+.services h2{font-size:clamp(34px,5.9vw,94px);margin-bottom:104px}
+.chap{border-top:1px solid #333}
+.chap:last-child{border-bottom:1px solid #333}
+.chap>button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;grid-template-columns:70px 1fr 44px;align-items:center;gap:16px;padding:44px 0;position:relative}
+.chap>button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.chap .no{color:var(--red);font-size:13px;letter-spacing:.18em}
+.chap .tt{font-family:var(--display);font-size:clamp(27px,5.4vw,83px);line-height:1;text-transform:uppercase;color:#8a867f;transition:color .4s,transform .6s var(--ease)}
+.chap .pl{width:44px;height:44px;border:1px solid #444;border-radius:50%;display:grid;place-items:center;transition:background .4s,transform .5s var(--ease)}
+.chap.open .tt{color:var(--text);transform:translateX(10px)}.chap>button:hover .tt{color:var(--text)}
+.chap.open .pl{background:var(--red);transform:rotate(45deg);border-color:var(--red)}
+.chap .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s var(--ease)}
+.chap.open .body{grid-template-rows:1fr}
+.chap .in{overflow:hidden;min-height:0}
+.chap .cols{display:grid;grid-template-columns:70px 1.1fr 1fr;gap:36px;padding:0 0 72px}
+.chap .cols>p{margin:0;max-width:28ch}
+.chap ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:14px;align-content:flex-start}
+.chap li{border:1px solid #3a3a3a;font-size:14px;color:#d8d5cf;border-radius:99px;transition:background .3s,border-color .3s,color .3s}.chap li button{all:unset;box-sizing:border-box;cursor:pointer;display:block;padding:8px 16px;border-radius:99px}.chap li button:focus-visible{outline:2px solid var(--red);outline-offset:2px}.chap li:hover{border-color:var(--red)}.chap li.on{background:var(--red);border-color:var(--red);color:#0A0A0A}.chap .det{margin:36px 0 0;padding-top:28px;border-top:1px solid #333;min-height:7em;max-width:40ch;display:grid;align-content:start;gap:10px}
+.chap .bar{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:0 50%;transition:transform .8s var(--ease)}
+.chap.open .bar{transform:scaleX(1)}
+/* process */
+.process h2{font-size:clamp(34px,5.9vw,94px);max-width:12ch}
+.steps{position:relative;margin-top:130px;padding-left:44px}
+.track{position:absolute;left:8px;top:0;bottom:0;width:2px;background:#2a2a2a}
+.fill{position:absolute;left:0;top:0;width:100%;height:100%;background:var(--red);transform:scaleY(0);transform-origin:50% 0}
+.step{position:relative;padding:0 0 clamp(90px,13vw,180px);opacity:.55;transition:opacity .6s}
+.step.on{opacity:1}
+.step::before{content:"";position:absolute;left:-43px;top:18px;width:14px;height:14px;background:var(--bg);border:2px solid #555;border-radius:50%;transition:all .5s}
+.step.on::before{background:var(--red);border-color:var(--red);box-shadow:0 0 0 8px rgba(255,48,56,.18)}
+.step .num{font-size:13px;letter-spacing:.2em;color:var(--red)}
+.step h3{font-size:clamp(27px,5vw,76px);margin-top:6px;text-transform:uppercase}
+/* review */
+header.onlight .lnk::after{background:var(--red)}
+.review{background:var(--light);color:var(--ink)}
+.review .tag{color:#55524d}
+.review h2{font-size:clamp(34px,6.3vw,101px);max-width:14ch;margin:30px 0 76px}
+.review h2 span{color:var(--red)}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px)}
+.review p{font-size:20px;line-height:1.78;max-width:46ch;margin:0 0 30px}
+.review .fine{font-size:15px;color:#55524d}
+.outs{list-style:none;margin:0;padding:0;counter-reset:o}
+.outs li{counter-increment:o;font-size:clamp(21px,2.4vw,30px);font-weight:600;letter-spacing:-.02em;line-height:1.3;padding:38px 0 38px 64px;border-top:2px solid var(--ink);position:relative}
+.outs li:last-child{border-bottom:2px solid var(--ink)}
+.outs li::before{content:"0" counter(o);position:absolute;left:0;top:44px;font:600 13px var(--body);color:var(--red);letter-spacing:.15em}
+.btn.big{font-size:19px;padding:22px 34px 22px 30px;background:var(--ink);color:var(--light);margin-top:32px}
+.btn.big::before{background:var(--red)}
+.btn.big:hover{color:var(--ink)}
+/* why */
+.why h2{font-size:clamp(31px,5vw,79px);max-width:16ch;margin-bottom:104px}
+.pr{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid #2a2a2a}
+.pr div{padding:48px 36px 48px 0;border-right:1px solid #2a2a2a;padding-left:36px}.pr div:first-child{padding-left:0}.pr div:last-child{border:0}
+.pr b{display:block;font-size:20px;letter-spacing:-.01em;margin-bottom:16px}.pr span{display:block;color:var(--muted);font-size:17px;line-height:1.7}
+/* final */
+.final{background:var(--surface);overflow:hidden}
+.final h2{font-size:clamp(40px,9.9vw,171px);text-transform:uppercase;line-height:1.02}
+.final h2 .ln{display:block;will-change:transform}.final h2 .ln:nth-child(2){color:var(--red);margin-left:6vw}
+.final .row{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-top:104px;flex-wrap:wrap}
+.final p{max-width:44ch;font-size:20px;line-height:1.8;color:#d8d5cf;margin:0}
+.run{height:2px;background:#2d2d2d;margin-top:120px;position:relative;overflow:hidden}.run::after{content:"";position:absolute;top:0;left:-30%;width:30%;height:100%;background:var(--red);animation:run 3.2s var(--ease) infinite}
+@keyframes run{to{left:100%}}
+/* contact */
+.contact{background:var(--bg)}
+.cg{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,6vw,100px)}
+.contact h2{font-size:clamp(31px,4.5vw,65px)}
+form{display:grid;gap:32px}
+.f{display:grid;gap:10px}
+label,legend{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+input,select,textarea{width:100%;background:var(--surface);border:1px solid #6b6862;border-bottom:2px solid #8a867f;color:var(--text);font:17px var(--body);padding:15px 16px;border-radius:0;transition:border-color .3s}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--red);outline-offset:2px;border-color:var(--red)}::placeholder{color:#a8a49d;opacity:1}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--text) 50%),linear-gradient(135deg,var(--text) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 14px) 55%;background-size:6px 6px;background-repeat:no-repeat}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.err{color:#ff8a8f;font-size:14px;min-height:1px}
+[aria-invalid=true]{border-color:#ff8a8f}
+#status{padding:20px;border:1px solid var(--red);display:none}#status.show{display:block}
+.hp{position:absolute;left:-9999px}
+.px{--s:14px;position:relative;width:44px;height:44px;border:1px solid #444;border-radius:50%;display:block;font-size:0;line-height:0;color:var(--text);transition:background .4s,transform .5s var(--ease),border-color .4s}
+.open>.px{background:var(--red);border-color:var(--red);color:#0A0A0A;transform:rotate(45deg)}
+.more{max-height:0;opacity:0;overflow:hidden;margin:0;color:#cfccc6;font-size:18px;line-height:1.7;max-width:52ch;transition:max-height .6s var(--ease),opacity .5s,margin .5s}
+.open>.more{max-height:300px;opacity:1;margin-top:18px}
+.prow .px{grid-column:3;grid-row:1;align-self:center}.prow .more{grid-column:2/-1}
+.step{cursor:pointer}.step h3{padding-right:60px}.step .px{position:absolute;top:0;right:0}
+.pr>div{cursor:pointer}.pr .px{--s:10px;width:32px;height:32px;margin-top:20px}.pr .more{font-size:16px}
+.ninfo{position:relative;z-index:2;width:min(920px,100%);margin:22px 0 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:12px 32px}
+.ninfo p{margin:6px 0 0;font-size:17px;line-height:1.6;color:#d8d5cf}.ninfo .hintn{grid-column:1/-1;color:var(--muted);margin:0}
+.nd{fill:rgba(0,0,0,0);pointer-events:all;cursor:pointer;transition:fill .3s}.nd:hover{fill:rgba(255,255,255,.04)}.nd.on{fill:rgba(255,48,56,.12)}.nd:focus-visible{outline:2px solid var(--red)}
+/* footer */
+footer{padding:128px 0 56px;border-top:1px solid #222;position:relative;overflow:hidden}
+.big{font-family:var(--display);font-size:clamp(70px,22vw,360px);line-height:.8;letter-spacing:-.02em;text-transform:uppercase;color:transparent;-webkit-text-stroke:1px #333;margin:40px 0 0;white-space:nowrap}
+.frow{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+footer ul{list-style:none;margin:0;padding:0;display:flex;gap:26px;flex-wrap:wrap}
+footer .small{color:var(--muted);font-size:14px}
+.wm{background:none;border:1px solid #333;color:var(--muted);padding:6px 12px;border-radius:99px;font:12px var(--body);cursor:pointer}.wm:hover{color:var(--text);border-color:var(--red)}
+@media(max-width:860px){
+nav ul{display:none}#burger{display:block}
+.hero{padding-bottom:40px;align-items:flex-end}.art{width:100%;margin-top:44px;padding:3% 2%}.art .lb{font-size:28px;letter-spacing:1.5px}.art .nl{font-size:33px}
+.hero-row{grid-template-columns:1fr}.hero .meta{justify-self:start;text-align:left}
+.prow:nth-child(n){margin-left:0}.prow{grid-template-columns:64px 1fr 36px}.px{--s:12px;width:36px;height:36px}.ninfo{grid-template-columns:1fr}.step h3{padding-right:48px}
+.chap>button{grid-template-columns:36px 1fr 40px}.chap .cols{grid-template-columns:1fr}.chap .cols p{max-width:none}
+.rgrid,.cg,.two{grid-template-columns:1fr}.pr{grid-template-columns:1fr 1fr}.pr div{border:0;border-top:1px solid #2a2a2a;padding:24px 16px 24px 0}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important;scroll-behavior:auto!important}
+.mask>span,.fade,.rv,.step{opacity:1!important;transform:none!important}.streak{transform:none}.mv{display:none}#intro{display:none}}
+html{overflow-x:hidden}
+.wrap{padding-left:max(clamp(20px,5vw,72px),env(safe-area-inset-left,0px));padding-right:max(clamp(20px,5vw,72px),env(safe-area-inset-right,0px))}
+h1,h2,h3,.tt,.btn span,p,li,label{overflow-wrap:anywhere}
+.btn{max-width:100%;white-space:normal;text-align:left}
+.cg>*,.rgrid>*,.hero-row>*,.final .row>*{min-width:0}
+.big{font-size:clamp(44px,14vw,300px)}
+.ghost{display:inline-block;padding:12px 0 8px}
+footer .lnk{display:inline-block;padding:12px 0}
+.hb{all:unset;box-sizing:border-box;display:block;cursor:pointer;max-width:100%}
+.hb:focus-visible{outline:2px solid var(--red);outline-offset:6px}
+.review .tag b,.outs li::before{color:#C4161C}
+.req{margin:0;color:var(--muted);font-size:15px}
+.still .run::after,.still .ring{animation:none!important}
+.px::before,.px::after{content:"";position:absolute;left:50%;top:50%;background:currentColor;transform:translate(-50%,-50%)}.px::before{width:var(--s);height:2px}.px::after{width:2px;height:var(--s)}
+.chap .pl svg{display:block}
+.chap .cols{gap:40px 64px;padding-top:52px}
+.chap li button{padding:10px 18px}
+.chap ul{gap:12px}
+.t-lead{font-size:clamp(20px,2vw,26px);line-height:1.5;font-weight:500;letter-spacing:-.01em;color:var(--text)}
+.t-label{font-size:14px;line-height:1.2;font-weight:600;letter-spacing:.04em}
+.t-detail{font-size:17px;line-height:1.65;color:#d8d5cf}
+.t-kicker{display:block;font-size:12px;line-height:1.3;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--red)}
+.t-body{display:block;font-size:17px;line-height:1.65;color:#d8d5cf}
+#pm{margin-top:18px}
+@media(max-width:860px){
+.cta-row{flex-direction:column;align-items:stretch;gap:8px}
+.cta-row .btn,.final .btn,.btn.big,form .btn{width:100%;justify-content:space-between}
+.cta-row .ghost{text-align:center}
+.final .row{flex-direction:column;align-items:stretch;gap:36px}
+.final h2 .ln:nth-child(2){margin-left:0}
+.problem .intro-p{margin:44px 0 0}
+.plist{margin-top:80px}.services h2,.why h2{margin-bottom:56px}.review h2{margin-bottom:44px}.steps{margin-top:72px}
+.chap .cols>span{display:none}.chap .cols{padding-bottom:48px}
+.outs li{padding-left:48px}
+.pr{grid-template-columns:1fr}
+.wm,#pm{min-height:44px;padding:10px 16px}
+.frow{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="prog" aria-hidden="true"></div>
+<div id="intro" aria-hidden="true"><small>PACECAR</small><div class="l"></div></div>
+
+<header id="hdr">
+ <div class="wrap nav">
+  <a class="logo" href="#top" aria-label="Pacecar home">PACECAR<i></i></a>
+  <nav aria-label="Primary"><ul>
+   <li><a class="lnk" href="#what">What We Do</a></li>
+   <li><a class="lnk" href="#how">How We Work</a></li>
+   <li><a class="lnk" href="#contact">Contact</a></li>
+   <li><a class="btn sm" href="#contact"><span>Tell us what’s not working</span></a></li>
+  </ul></nav>
+  <button id="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 1h18M0 11h18"/></svg></button>
+ </div>
+</header>
+<div id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+ <a href="#what">What We Do</a><a href="#how">How We Work</a><a href="#contact">Contact</a>
+</div>
+
+<main id="main">
+<section class="hero" id="top">
+ <div class="streak" aria-hidden="true"></div>
+ <div class="wrap" style="width:100%">
+  <div class="eyebrow tag fade"><b>●</b> Digital improvement for growing businesses</div>
+  <h1><span class="mask"><span>Make the</span></span><span class="mask"><span>digital side of</span></span><span class="mask"><span>your business</span></span><span class="mask"><span><em>work better.</em></span></span></h1>
+  <div class="art" id="art" role="group" aria-label="Workflow comparison. Select a step to see what changes.">
+   <svg viewBox="-40 20 1080 640" fill="none">
+    <defs><linearGradient id="tr" x1="0" x2="1"><stop offset="0" stop-color="#FF3038" stop-opacity="0"/><stop offset="1" stop-color="#FF3038"/></linearGradient></defs>
+    <g class="lb" font-family="Instrument Sans,system-ui,sans-serif" font-size="19" letter-spacing="3" font-weight="600">
+     <text x="60" y="70" fill="#a8a49d">TODAY: FRICTION</text>
+     <text x="60" y="410" fill="#FF3038">WITH PACECAR: FLOW</text></g>
+    <path d="M60 220C130 70 250 380 353 220S430 60 500 210S400 340 560 240C600 190 600 330 646 220S780 100 860 250L940 220" stroke="#6a6660" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 9"/>
+    <g fill="#0A0A0A" stroke="#7a766f" stroke-width="2.5"><circle cx="60" cy="220" r="11"/><circle cx="353" cy="220" r="11"/><circle cx="646" cy="220" r="11"/><circle cx="940" cy="220" r="11"/></g>
+    <circle class="mv" r="7" fill="#c9c5be"><animateMotion dur="11s" repeatCount="indefinite" path="M60 220C130 70 250 380 353 220S430 60 500 210S400 340 560 240C600 190 600 330 646 220S780 100 860 250L940 220"/></circle>
+    <path d="M60 530H940" stroke="#FF3038" stroke-width="4"/>
+    <g stroke="#F5F3EF" stroke-opacity=".35" stroke-width="2.5" stroke-linecap="round"><path d="M150 500h110M470 500h150M760 500h90M250 560h130M580 560h110"/></g>
+    <g fill="#0A0A0A" stroke="#FF3038" stroke-width="3.5"><circle cx="60" cy="530" r="12"/><circle cx="353" cy="530" r="12"/><circle cx="646" cy="530" r="12"/><circle cx="940" cy="530" r="12"/></g>
+    <g class="nl" font-family="Instrument Sans,system-ui,sans-serif" font-size="22" font-weight="500" fill="#F5F3EF" text-anchor="middle"><text x="60" y="610">Website</text><text x="353" y="610">Inquiry</text><text x="646" y="610">Tools</text><text x="940" y="610">Follow-up</text></g>
+    <g><rect class="nd" x="-40" y="100" width="200" height="540" rx="6" tabindex="0" role="button" aria-label="Website: compare today and with Pacecar"/><rect class="nd" x="253" y="100" width="200" height="540" rx="6" tabindex="0" role="button" aria-label="Inquiry: compare today and with Pacecar"/><rect class="nd" x="546" y="100" width="200" height="540" rx="6" tabindex="0" role="button" aria-label="Tools: compare today and with Pacecar"/><rect class="nd" x="840" y="100" width="200" height="540" rx="6" tabindex="0" role="button" aria-label="Follow-up: compare today and with Pacecar"/></g>
+    <g class="mv"><rect x="-130" y="-2" width="130" height="4" fill="url(#tr)"/><circle r="9" fill="#FF3038"/><animateMotion dur="2s" repeatCount="indefinite" path="M60 530H940"/></g>
+   </svg>
+  </div>
+  <div class="ninfo" id="ninfo" aria-live="polite"><p class="hintn">Select a step above to see what changes.</p></div>
+  <button class="wm" id="pm" type="button" aria-pressed="false">Pause motion</button>
+  <div class="hero-row">
+   <div class="fade">
+    <p class="lead">From underperforming websites to repetitive busywork, Pacecar fixes the digital problems that slow your business down.</p>
+    <div class="cta-row"><a class="btn" href="#contact"><span>Tell us what’s not working</span><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 6h16M11 1l5 5-5 5"/></svg></a><a class="ghost" href="#what">Explore what we do</a></div>
+   </div>
+   <div class="meta tag fade">Websites. Ongoing care.<br>Practical automation.</div>
+  </div>
+ </div>
+</section>
+
+<section class="sec problem" id="problem">
+ <div class="wrap">
+  <div class="tag rv"><b>01</b> — The problem</div>
+  <h2 class="rv" style="margin-top:20px">Your business has moved forward. <u>Your digital setup should too.</u></h2>
+  <p class="intro-p rv">The website that got you here might not be the website you need now. Your tools might technically work, but still create unnecessary effort. And the small digital frustrations you work around every day can quietly become part of how the business operates.</p>
+  <div class="plist">
+   <div class="prow rv" data-x="Services change and new customers arrive, but the site still describes the business you used to be. Visitors can’t tell what you do now or what to do next."><div class="n">A</div><h3>The website no longer reflects the business.</h3></div>
+   <div class="prow rv" data-x="Re-keying inquiries, copying details between tools, chasing follow-ups by hand. It works, but it costs time every week."><div class="n">B</div><h3>Too much work still happens manually.</h3></div>
+   <div class="prow rv" data-x="Forms, email, calendars and spreadsheets each do their job, yet people still carry information from one to the next."><div class="n">C</div><h3>The tools and systems don’t work well together.</h3></div>
+  </div>
+ </div>
+</section>
+
+<section class="sec services" id="what">
+ <div class="wrap">
+  <div class="tag rv"><b>02</b> — What Pacecar does</div>
+  <h2 class="rv" style="margin-top:20px">Find the friction.<br>Fix what matters.</h2>
+  <div class="chaps">
+   <div class="chap open"><button aria-expanded="true" aria-controls="c1" id="b1"><span class="no">A</span><span class="tt">Build it better</span><span class="pl" aria-hidden="true"><svg width="14" height="14" stroke="currentColor" stroke-width="2"><path d="M7 0v14M0 7h14"/></svg></span><span class="bar"></span></button>
+    <div class="body" id="c1" role="region" aria-labelledby="b1"><div class="in"><div class="cols"><span></span><p>Websites that communicate clearly, reflect the business, and help the right customers take action.</p><ul><li data-d="Deciding what the site needs to do for the business, and for whom.">Website strategy</li><li data-d="How the site looks, feels and guides visitors toward action.">Design</li><li data-d="Building the site so it works properly on any device.">Development</li><li data-d="How pages are organised so people can find what they need.">Information architecture</li><li data-d="How information is laid out and ordered on each page.">Content structure</li><li data-d="Tidying the look of an existing brand. Not a rebrand.">Light brand refinement</li><li data-d="Help with the words, if you want it.">Optional copywriting</li></ul></div></div></div></div>
+   <div class="chap"><button aria-expanded="false" aria-controls="c2" id="b2"><span class="no">B</span><span class="tt">Keep it working</span><span class="pl" aria-hidden="true"><svg width="14" height="14" stroke="currentColor" stroke-width="2"><path d="M7 0v14M0 7h14"/></svg></span><span class="bar"></span></button>
+    <div class="body" id="c2" role="region" aria-labelledby="b2"><div class="in"><div class="cols"><span></span><p>Reliable ongoing website care, so small problems don’t turn into big ones.</p><ul><li data-d="Keeping the site up to date and running reliably.">Maintenance</li><li data-d="Changing copy, images and pages as the business changes.">Content updates</li><li data-d="Finding and fixing what’s broken.">Troubleshooting</li><li data-d="Small, steady upgrades instead of big rebuilds.">Incremental improvements</li></ul></div></div></div></div>
+   <div class="chap"><button aria-expanded="false" aria-controls="c3" id="b3"><span class="no">C</span><span class="tt">Make it run smoother</span><span class="pl" aria-hidden="true"><svg width="14" height="14" stroke="currentColor" stroke-width="2"><path d="M7 0v14M0 7h14"/></svg></span><span class="bar"></span></button>
+    <div class="body" id="c3" role="region" aria-labelledby="b3"><div class="in"><div class="cols"><span></span><p>Practical automation for the repetitive digital work that eats your week.</p><ul><li data-d="Replacing repetitive manual steps with automated ones.">Workflow automation</li><li data-d="Getting the tools you already use to share information.">Tool integrations</li><li data-d="Making sure inquiries reach the right person.">Lead routing</li><li data-d="Tidying recurring digital tasks that cost you time.">Repetitive process improvements</li></ul></div></div></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="sec process" id="how">
+ <div class="wrap">
+  <div class="tag rv"><b>03</b> — How we work</div>
+  <h2 class="rv" style="margin-top:20px">Less overthinking. Better execution.</h2>
+  <div class="steps" id="steps"><div class="track"><div class="fill" id="fill"></div></div>
+   <div class="step" data-x="A conversation about how the business runs, who the customers are, and where the digital side gets in the way."><div class="num">01</div><h3>Understand the business.</h3></div>
+   <div class="step" data-x="Separating the problems worth solving from the ones that are merely annoying, and agreeing what comes first."><div class="num">02</div><h3>Identify what matters.</h3></div>
+   <div class="step" data-x="Building, fixing, connecting or automating the agreed work, hands-on."><div class="num">03</div><h3>Do the work.</h3></div>
+   <div class="step" data-x="The business keeps changing, so the website and systems keep getting practical, incremental improvements."><div class="num">04</div><h3>Keep improving.</h3></div>
+  </div>
+ </div>
+</section>
+
+<section class="sec review" id="review" data-light>
+ <div class="wrap">
+  <div class="tag rv"><b>04</b> — Opportunity Review</div>
+  <h2 class="rv">Not sure where to start? <span>Find the friction first.</span></h2>
+  <div class="rgrid">
+   <div class="rv">
+    <p>Tell us what isn’t working. We’ll help identify the digital problems worth solving and establish a practical next step.</p>
+    <p class="fine">The Pacecar Opportunity Review is a paid initial engagement intended to clarify opportunities across the website and related digital workflows. If a qualifying project follows, the review fee may be credited toward that project, subject to finalized terms.</p>
+    <a class="btn big" href="#contact"><span>Start a conversation</span><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 6h16M11 1l5 5-5 5"/></svg></a>
+   </div>
+   <ol class="outs rv"><li>A clearer understanding of the current problems.</li><li>Prioritized opportunities for improvement.</li><li>A practical recommendation for what to do next.</li></ol>
+  </div>
+ </div>
+</section>
+
+<section class="sec why" id="why">
+ <div class="wrap">
+  <div class="tag rv"><b>05</b> — Why Pacecar</div>
+  <h2 class="rv" style="margin-top:20px">A practical partner for the digital work that matters.</h2>
+  <div class="pr rv">
+   <div data-x="Start with what the business needs, then choose the tools. Never the other way round."><b>Business first.</b><span>Technology serves a real purpose.</span></div>
+   <div data-x="If a simpler fix does the job, that’s the recommendation."><b>Clarity over complexity.</b><span>Recommend what is useful, not what is fashionable.</span></div>
+   <div data-x="Not just a list of what’s wrong. Help getting it fixed."><b>Hands-on execution.</b><span>Identify the issue and help fix it.</span></div>
+   <div data-x="Choices that stay easy to maintain and extend as the business grows."><b>Built for what’s next.</b><span>Keep the digital setup maintainable and adaptable.</span></div>
+  </div>
+ </div>
+</section>
+
+<section class="sec final" id="final">
+ <div class="wrap">
+  <h2 aria-label="What’s slowing your business down?"><span class="ln" data-s="-.05">What’s slowing</span><span class="ln" data-s=".05">your business</span><span class="ln" data-s="-.03">down?</span></h2>
+  <div class="row"><p>Maybe it’s the website. Maybe it’s the manual work, the disconnected tools, or the things nobody has had time to fix. Let’s figure out where to start.</p>
+  <a class="btn" href="#contact"><span>Tell us what’s not working</span><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 6h16M11 1l5 5-5 5"/></svg></a></div>
+  <div class="run" aria-hidden="true"></div>
+ </div>
+</section>
+
+<section class="sec contact" id="contact">
+ <div class="wrap cg">
+  <div class="rv"><div class="tag"><b>06</b> — Contact</div><h2 style="margin:20px 0 24px">Tell us what’s not working.</h2><p style="color:var(--muted);max-width:34ch">A few details are enough. We’ll come back with a sensible next step.</p></div>
+  <form id="form" novalidate class="rv">
+   <p class="req">All fields are required unless marked optional.</p>
+   <div class="two"><div class="f"><label for="name">Name</label><input id="name" name="name" autocomplete="name" aria-required="true" required><div class="err" id="e-name"></div></div>
+   <div class="f"><label for="email">Business email</label><input id="email" name="email" type="email" autocomplete="email" aria-required="true" required><div class="err" id="e-email"></div></div></div>
+   <div class="two"><div class="f"><label for="biz">Business name</label><input id="biz" name="business" autocomplete="organization" aria-required="true" required><div class="err" id="e-biz"></div></div>
+   <div class="f"><label for="site">Current website <span style="text-transform:none;letter-spacing:0">(optional)</span></label><input id="site" name="website" type="url" inputmode="url" placeholder="https://"><div class="err" id="e-site"></div></div></div>
+   <div class="f"><label for="ch">Main challenge</label><select id="ch" name="challenge" aria-required="true" required><option value="">Choose one…</option><option>Our website needs work.</option><option>We need ongoing website support.</option><option>We want better-quality inquiries.</option><option>We want to automate repetitive tasks.</option><option>Our digital tools aren’t working together.</option><option>We need help identifying the right opportunity.</option></select><div class="err" id="e-ch"></div></div>
+   <div class="f"><label for="ctx">Additional context <span style="text-transform:none;letter-spacing:0">(optional)</span></label><textarea id="ctx" name="context" rows="4"></textarea></div>
+   <input class="hp" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true">
+   <div><button class="btn" type="submit"><span>Send</span><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 6h16M11 1l5 5-5 5"/></svg></button></div>
+   <div id="status" role="status" tabindex="-1"></div>
+  </form>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="wrap">
+  <div class="frow">
+   <div><a class="logo" href="#top">PACECAR<i></i></a><p class="small" style="margin:12px 0 0">Websites, digital systems, and practical improvements.</p></div>
+   <ul aria-label="Footer"><li><a class="lnk" href="#what">What We Do</a></li><li><a class="lnk" href="#how">How We Work</a></li><li><a class="lnk" href="#contact">Contact</a></li></ul>
+   <div class="small" id="fc"></div>
+  </div>
+  <div class="big" aria-hidden="true">Pacecar</div>
+  <div class="frow" style="margin-top:28px"><span class="small">© <span id="yr"></span> Pacecar</span><button class="wm" id="wm" type="button">Wordmark font: Bartle / Young Serif</button></div>
+ </div>
+</footer>
+
+<script>
+/* ===== CONFIG — connect these before launch ===== */
+var CONFIG={
+ formEndpoint:"",          // POST URL (Formspree, Netlify function, etc.). JSON body. Leave empty = form shows "not connected" notice.
+ contactEmail:"",          // shown in footer when set
+ contactPhone:"",          // shown in footer when set
+ social:[]                 // [{label:"LinkedIn",url:"https://…"}] — only real profile URLs
+};
+(function(){
+var d=document,b=d.body,rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+d.getElementById("yr").textContent=new Date().getFullYear();
+var fc=d.getElementById("fc"),bits=[];
+if(CONFIG.contactEmail)bits.push('<a href="mailto:'+CONFIG.contactEmail+'">'+CONFIG.contactEmail+'</a>');
+if(CONFIG.contactPhone)bits.push(CONFIG.contactPhone);
+CONFIG.social.forEach(function(s){if(s.url)bits.push('<a href="'+s.url+'" rel="noopener">'+s.label+'</a>')});
+fc.innerHTML=bits.join("<br>");
+/* intro */
+function go(){b.classList.add("go")}
+requestAnimationFrame(function(){setTimeout(go,rm?0:900)});setTimeout(go,1800);
+/* header + progress + parallax */
+var hdr=d.getElementById("hdr"),prog=d.getElementById("prog"),art=d.getElementById("art"),light=d.getElementById("review"),fill=d.getElementById("fill"),steps=[].slice.call(d.querySelectorAll(".step")),stepsEl=d.getElementById("steps"),lns=[].slice.call(d.querySelectorAll(".final .ln")),tick=false;
+function upd(){tick=false;var y=scrollY,h=d.documentElement.scrollHeight-innerHeight;
+ prog.style.transform="scaleX("+(h>0?y/h:0)+")";
+ hdr.classList.toggle("solid",y>40);
+ var r=light.getBoundingClientRect();hdr.classList.toggle("onlight",r.top<68&&r.bottom>68);
+ 
+ var s=stepsEl.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.6-s.top)/s.height));fill.style.transform="scaleY("+p+")";
+ steps.forEach(function(el){el.classList.toggle("on",el.getBoundingClientRect().top<innerHeight*.62)});
+ if(!rm){var f=d.getElementById("final").getBoundingClientRect(),q=(innerHeight-f.top)/(innerHeight+f.height);lns.forEach(function(l){l.style.transform="translate3d("+((q-.5)*parseFloat(l.dataset.s)*innerWidth*2)+"px,0,0)"})}}
+addEventListener("scroll",function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});addEventListener("resize",upd);upd();
+/* pointer parallax (fine pointers only) */
+if(!rm&&matchMedia("(hover:hover) and (pointer:fine)").matches){var hero=d.getElementById("top");
+ hero.addEventListener("pointermove",function(e){var x=(e.clientX/innerWidth-.5)*30,y=(e.clientY/innerHeight-.5)*30;art.style.transform="translate3d("+(-x/2)+"px,"+(-y/2)+"px,0)"})}
+/* reveal */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});
+d.querySelectorAll(".rv").forEach(function(el){io.observe(el)});
+/* services accordion */
+var chaps=[].slice.call(d.querySelectorAll(".chap"));
+chaps.forEach(function(c){c.querySelector("button").addEventListener("click",function(){var o=c.classList.contains("open");
+ chaps.forEach(function(x){x.classList.remove("open");x.querySelector("button").setAttribute("aria-expanded","false")});
+ if(!o){c.classList.add("open");c.querySelector("button").setAttribute("aria-expanded","true")}})});
+/* mobile menu */
+var burger=d.getElementById("burger"),menu=d.getElementById("menu");
+function setMenu(o){menu.hidden=false;requestAnimationFrame(function(){menu.classList.toggle("open",o)});burger.setAttribute("aria-expanded",o);burger.setAttribute("aria-label",o?"Close menu":"Open menu");b.style.overflow=o?"hidden":"";
+ if(o){burger.style.position="relative";burger.style.zIndex=60;menu.querySelector("a").focus()}else{burger.focus();setTimeout(function(){if(!menu.classList.contains("open"))menu.hidden=true},700)}}
+burger.addEventListener("click",function(){setMenu(!menu.classList.contains("open"))});
+menu.addEventListener("click",function(e){if(e.target.tagName==="A")setMenu(false)});
+d.addEventListener("keydown",function(e){var open=menu.classList.contains("open");
+ if(e.key==="Escape"&&open)setMenu(false);
+ if(e.key==="Tab"&&open){var f=[burger].concat([].slice.call(menu.querySelectorAll("a"))),i=f.indexOf(d.activeElement);
+  if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}}});
+/* uncover interactions */
+var uid=0;function ex(sel){d.querySelectorAll(sel).forEach(function(el){var i=d.createElement("span"),m=d.createElement("p");i.className="px";i.setAttribute("aria-hidden","true");i.textContent="+";m.className="more";m.textContent=el.dataset.x;el.appendChild(i);el.appendChild(m);var h=el.querySelector("h3,b"),bt=d.createElement("button"),id="mx"+(++uid);bt.type="button";bt.className="hb";bt.setAttribute("aria-expanded","false");bt.setAttribute("aria-controls",id);m.id=id;while(h.firstChild)bt.appendChild(h.firstChild);h.appendChild(bt);var nn=el.querySelector(".n");if(nn)nn.setAttribute("aria-hidden","true");
+ function tg(){var o=el.classList.toggle("open");bt.setAttribute("aria-expanded",o)}
+ el.addEventListener("click",tg)})}
+ex(".prow");ex(".step");ex(".pr>div");
+d.querySelectorAll(".chap ul").forEach(function(u){var w=d.createElement("div"),p=d.createElement("p");p.className="det t-detail";p.setAttribute("aria-live","polite");p.textContent="Select a topic for a short explanation.";var lead=u.closest(".cols").querySelector("p");if(lead)lead.classList.add("t-lead");u.parentNode.insertBefore(w,u);w.appendChild(u);w.appendChild(p);
+ u.querySelectorAll("li").forEach(function(li){var b=d.createElement("button");b.type="button";b.className="t-label";b.textContent=li.textContent;b.setAttribute("aria-pressed","false");li.textContent="";li.appendChild(b);
+  b.addEventListener("click",function(){u.querySelectorAll("li").forEach(function(x){x.classList.remove("on");x.firstChild.setAttribute("aria-pressed","false")});li.classList.add("on");b.setAttribute("aria-pressed","true");p.textContent="";var k=d.createElement("span"),t=d.createElement("span");k.className="t-kicker";k.textContent=b.textContent;t.className="t-body";t.textContent=li.dataset.d;p.appendChild(k);p.appendChild(t)})})});
+var NI=[["Website","Out of step with the business and unclear about what to do next.","Clear, current and built to help the right customers take action."],["Inquiry","Messages arrive without context and can get lost.","Inquiries arrive complete and get to the right person."],["Tools","Systems that don’t talk to each other.","Connected tools that share information."],["Follow-up","Manual, repetitive and easy to forget.","Repetitive steps handled automatically."]],ni=d.getElementById("ninfo"),nds=[].slice.call(d.querySelectorAll(".nd"));
+nds.forEach(function(r,i){function sel(){nds.forEach(function(x){x.classList.remove("on")});r.classList.add("on");var n=NI[i];ni.innerHTML='<div><span class="tag">'+n[0]+' · Today</span><p>'+n[1]+'</p></div><div><span class="tag" style="color:var(--red)">'+n[0]+' · With Pacecar</span><p>'+n[2]+'</p></div>'}
+ r.addEventListener("click",sel);r.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();sel()}})});
+setTimeout(function(){if(nds[0]&&!d.querySelector(".nd.on"))nds[0].dispatchEvent(new Event("click"))},2600);
+var pm=d.getElementById("pm"),sv=d.querySelector("#art svg");pm.addEventListener("click",function(){var s=d.documentElement.classList.toggle("still");pm.setAttribute("aria-pressed",s);if(sv.pauseAnimations){s?sv.pauseAnimations():sv.unpauseAnimations()}});
+/* wordmark switch */
+d.getElementById("wm").addEventListener("click",function(){var h=d.documentElement;h.dataset.wm=h.dataset.wm==="serif"?"":"serif"});
+/* form */
+var form=d.getElementById("form"),st=d.getElementById("status");
+function err(id,inp,msg){d.getElementById(id).textContent=msg;inp.setAttribute("aria-invalid",msg?"true":"false");if(msg)inp.setAttribute("aria-describedby",id);return !msg}
+form.addEventListener("submit",function(e){e.preventDefault();var f=form.elements,ok=true,first=null;
+ function chk(id,inp,msg){var r=err(id,inp,msg);if(!r){ok=false;first=first||inp}}
+ chk("e-name",f.name,f.name.value.trim()?"":"Please enter your name.");
+ chk("e-email",f.email,/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.value.trim())?"":"Please enter a valid email.");
+ chk("e-biz",f.business,f.business.value.trim()?"":"Please enter your business name.");
+ var w=f.website.value.trim();chk("e-site",f.website,!w||/^https?:\/\/.+\..+/.test(w)?"":"Include the full address, starting with https://");
+ chk("e-ch",f.challenge,f.challenge.value?"":"Please choose a main challenge.");
+ if(!ok){first.focus();return}
+ if(f.company_url.value)return;
+ var data={name:f.name.value,email:f.email.value,business:f.business.value,website:w,challenge:f.challenge.value,context:f.context.value};
+ st.className="show";
+ if(!CONFIG.formEndpoint){st.textContent="This form isn’t connected to a backend yet, so nothing was sent. Set CONFIG.formEndpoint in the page script to enable submissions.";st.focus();return}
+ st.textContent="Sending…";
+ fetch(CONFIG.formEndpoint,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)})
+ .then(function(r){if(!r.ok)throw 0;form.reset();st.textContent="Thanks, "+data.name.split(" ")[0]+". Your message has been received. We’ll be in touch about a practical next step.";st.focus()})
+ .catch(function(){st.textContent="Something went wrong sending that. Please try again in a moment.";st.focus()})});
+})();
+</script>
+</body>
+</html>
